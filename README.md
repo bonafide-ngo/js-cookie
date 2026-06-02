@@ -2,16 +2,15 @@
   <img src="https://cloud.githubusercontent.com/assets/835857/14581711/ba623018-0436-11e6-8fce-d2ccd4d379c9.gif">
 </p>
 
-# JavaScript Cookie [![CI](https://github.com/js-cookie/js-cookie/actions/workflows/ci.yml/badge.svg)](https://github.com/js-cookie/js-cookie/actions/workflows/ci.yml) [![Code Climate](https://codeclimate.com/github/js-cookie/js-cookie.svg)](https://codeclimate.com/github/js-cookie/js-cookie) [![npm](https://img.shields.io/github/package-json/v/js-cookie/js-cookie)](https://www.npmjs.com/package/js-cookie) [![size](https://img.shields.io/bundlephobia/minzip/js-cookie/3)](https://www.npmjs.com/package/js-cookie) [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/js-cookie/badge?style=rounded)](https://www.jsdelivr.com/package/npm/js-cookie)
+# JavaScript Cookie [![CI](https://github.com/js-cookie/js-cookie/actions/workflows/ci.yml/badge.svg)](https://github.com/js-cookie/js-cookie/actions/workflows/ci.yml) [![npm](https://img.shields.io/github/package-json/v/js-cookie/js-cookie)](https://www.npmjs.com/package/js-cookie) [![size](https://img.shields.io/bundlephobia/minzip/js-cookie/3)](https://www.npmjs.com/package/js-cookie) [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/js-cookie/badge?style=rounded)](https://www.jsdelivr.com/package/npm/js-cookie)
 
-A simple, lightweight JavaScript API for handling cookies
+A simple, lightweight JavaScript API for handling cookies, client-side.
 
 - Extensive browser support
 - Accepts [any](#encoding) character
 - [Heavily](test) tested
 - No dependency
-- Supports ES modules
-- Supports AMD/CommonJS
+- Supports both ES and AMD/CommonJS modules
 - [RFC 6265](https://tools.ietf.org/html/rfc6265) compliant
 - Useful [Wiki](https://github.com/js-cookie/js-cookie/wiki)
 - Enable [custom encoding/decoding](#converters)
@@ -23,8 +22,6 @@ A simple, lightweight JavaScript API for handling cookies
 ## Installation
 
 ### NPM
-
-JavaScript Cookie supports [npm](https://www.npmjs.com/package/js-cookie) under the name `js-cookie`.
 
 ```bash
 npm i js-cookie
@@ -214,13 +211,27 @@ Cookies.get('name') // => 'value'
 Cookies.remove('name')
 ```
 
+### partitioned
+
+Either `true` or `false`, indicating if the cookie opts into partitioned storage. Must also set `secure: true`.
+
+**Default:** No partitioned storage.
+
+**Examples:**
+
+```javascript
+Cookies.set('name', 'value', { partitioned: true })
+Cookies.get('name') // => 'value'
+Cookies.remove('name')
+```
+
 ### sameSite
 
 A [`String`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), allowing to control whether the browser is sending a cookie along with cross-site requests.
 
 Default: not set.
 
-**Note that more recent browsers are making "Lax" the default value even without specifiying anything here.**
+**Note that more recent browsers are making "Lax" the default value even without specifying anything here.**
 
 **Examples:**
 
@@ -289,10 +300,9 @@ Check out the [Contributing Guidelines](CONTRIBUTING.md)
 
 ## Releasing
 
-Releasing should be done via the `Release` GitHub Actions workflow, so that published packages on npmjs.com have package provenance.
+Releases must be created via the `Release` GitHub Actions workflow (trusted publishing with OIDC).
 
-GitHub releases are created as a draft and need to be published manually!
-(This is so we are able to craft suitable release notes before publishing.)
+GitHub releases are created as a draft and need to be published manually! (This is so we are able to craft suitable release notes before publishing.)
 
 ## Supporters
 

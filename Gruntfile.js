@@ -1,4 +1,3 @@
-/* eslint-env node */
 function encodingMiddleware(request, response, next) {
   const URL = require('url').URL
   const url = new URL(request.url, 'http://localhost')
@@ -22,15 +21,6 @@ function encodingMiddleware(request, response, next) {
 
 const config = {
   qunit: {
-    options: {
-      puppeteer: {
-        headless: 'new'
-      },
-      inject: [
-        'test/fix-qunit-reference.js', // => https://github.com/gruntjs/grunt-contrib-qunit/issues/202
-        'node_modules/grunt-contrib-qunit/chrome/bridge.js'
-      ]
-    },
     all: {
       options: {
         urls: [
@@ -92,7 +82,8 @@ const config = {
     lint: 'npm run lint',
     rollup: 'npx rollup -c',
     'test-node': 'npx qunit test/node.js',
-    'browserstack-runner': 'node_modules/.bin/browserstack-runner --verbose'
+    'test-browserstack':
+      'npx browserstack-node-sdk node test/browserstack/runner.js'
   }
 }
 
@@ -112,7 +103,8 @@ module.exports = function (grunt) {
   ])
   grunt.registerTask('browserstack', [
     'exec:rollup',
-    'exec:browserstack-runner'
+    'connect:build-qunit',
+    'exec:test-browserstack'
   ])
   grunt.registerTask('dev', [
     'exec:format',
